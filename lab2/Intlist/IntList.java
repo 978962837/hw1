@@ -62,6 +62,21 @@ public class IntList {
         return res;
     }
 
+    public static IntList copyIterative(IntList L){
+        if (L == null){
+            return null;
+        }
+        IntList result = new IntList(L.first,null);
+        IntList p = result;
+        L = L.rest;
+        while (L != null){
+            p.rest = new IntList(L.first,null);
+            p = p.rest;
+            L = L.rest;
+        }
+        return result;
+    }
+
     /**
      * Returns a list equal to L with all elements squared. Non-destructive.
      */
@@ -82,7 +97,12 @@ public class IntList {
 
     public static IntList dcatenate(IntList A, IntList B) {
         //TODO:  fill in method
-        return null;
+        IntList p = A;
+        while (p.rest != null){
+            p = p.rest;
+        }
+        p.rest = B;
+        return A;
     }
 
     /**
@@ -91,9 +111,35 @@ public class IntList {
      */
     public static IntList catenate(IntList A, IntList B) {
         //TODO:  fill in method
-        return null;
+        if (A == null){
+            if (B == null){
+                return null;
+            }
+            return new IntList(B.first, catenate(A,B.rest));
+        }
+        return new IntList(A.first,catenate(A.rest,B));
     }
 
+
+    public static IntList copy(IntList L){
+        if (L==null){
+            return null;
+        }
+        return new IntList(L.first,copy(L.rest));
+    }
+
+    public static IntList catenate2(IntList A, IntList B){
+        IntList A_copy = copy(A);
+        IntList B_copy = copy(B);
+
+        IntList p = A_copy;
+        while (p.rest!=null){
+            p = p.rest;
+        }
+        p.rest = B_copy;
+
+        return A_copy;
+    }
 
 
 
